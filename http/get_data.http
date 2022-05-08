@@ -1,0 +1,26 @@
+// Authorization request
+POST {{keycloak}}/realms/ktor/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=ktor&client_secret=secret&username={{test_user}}&password={{test_password}}
+
+> {% client.global.set("access_token", response.body.access_token) %}
+
+####
+
+GET {{ktor-poc-url}}/profile
+Authorization: Bearer {{access_token}}
+Content-Type: application/
+
+> {%
+    client.log("=======================")
+    client.log("status: " + response.status)
+    client.log("profile:")
+    client.log("email: " + response.body["email"])
+    client.log("firstName: " + response.body["firstName"])
+    client.log("lastName: " + response.body["lastName"])
+    client.log("=======================")
+    client.test("check profile receiving status", function(){
+      client.assert(response.status == 200, "Response status should be 200")
+    })
+%}

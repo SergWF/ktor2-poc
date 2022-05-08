@@ -1,0 +1,83 @@
+// Authorization request
+POST {{keycloak}}/realms/master/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=admin-cli&username=ktor-admin&password=secret
+
+> {% client.global.set("admin_access_token", response.body.access_token) %}
+
+####
+// Create Boss User call
+POST {{keycloak}}/admin/realms/ktor/users
+Authorization: Bearer {{admin_access_token}}
+Content-Type: application/json
+
+{
+  "firstName": "Boss",
+  "lastName": "Example",
+  "email": "boss@example.com",
+  "enabled": "true",
+  "username": "boss",
+  "credentials": [
+    {
+      "type": "password",
+      "value": "secret",
+      "temporary": false
+    }
+  ],
+  "realmRoles": [
+    "boss"
+  ]
+}
+
+> {% client.test("check user creation status", function(){
+    client.assert(response.status == 201, "Response status should be 201")
+  }) %}
+
+
+
+####
+// Create Boss User call
+POST {{keycloak}}/admin/realms/ktor/users
+Authorization: Bearer {{admin_access_token}}
+Content-Type: application/json
+
+{
+  "firstName": "Employee",
+  "lastName": "Example",
+  "email": "employee@example.com",
+  "enabled": "true",
+  "username": "employee",
+  "credentials": [
+    {
+      "type": "password",
+      "value": "secret",
+      "temporary": false
+    }
+  ],
+  "realmRoles": [
+    "employee"
+  ]
+}
+
+> {% client.test("check user creation status", function(){
+    client.assert(response.status == 201, "Response status should be 201")
+  }) %}
+
+
+####
+// Get Boss User call
+GET {{keycloak}}/admin/realms/ktor/users
+Authorization: Bearer {{admin_access_token}}
+Content-Type: application/json
+
+
+> {%
+    client.log("=======================")
+    client.log("users count: " + response.body.length)
+    response.body.forEach(function(user){
+      client.log(" - " + user.email)
+    })
+    client.log("=======================")
+%}
+

@@ -1,0 +1,19 @@
+// Authorization request
+POST {{keycloak}}/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=ktor&client_secret=secret&username={{test_user}}&password={{test_password}}
+
+> {% client.global.set("access_token", response.body.access_token) %}
+
+
+####
+#// App-Sync call
+#POST {{rider-profile-url}}/v1/app-sync
+#Authorization: Bearer {{access_token}}
+#Content-Type: application/json
+#User-Agent: "Flow|test|1.2.2|123|iPhone|iPhone 11 Pro|iOS|15.3.1"
+#
+#{"granted": true}
+
+
