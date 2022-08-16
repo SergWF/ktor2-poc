@@ -1,12 +1,14 @@
-val ktor_version: String by project
+val kodein_version: String by project
 val kotlin_version: String by project
+val ktor_version: String by project
 val logback_version: String by project
+val mockk_version: String by project
 val prometeus_version: String by project
 
 plugins {
     application
     kotlin("jvm") version "1.6.21"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.6.21"
+    kotlin("plugin.serialization") version "1.6.21"
 }
 
 group = "wf.poc.ktor2"
@@ -20,7 +22,15 @@ application {
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
+configurations.testImplementation {
+    exclude(group = "org.jetbrains.kotlin", module = "kotlin-test-junit")
+    exclude(group = "junit")
 }
 
 dependencies {
@@ -35,6 +45,16 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
+//    implementation("io.insert-koin:koin-ktor:$koin_version")
+//    implementation("io.insert-koin:koin-logger-slf4j:$koin_version")
+    implementation("org.kodein.di:kodein-di-framework-ktor-server-jvm:$kodein_version")
+
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.6.1")
+
+//    testImplementation("io.mockk:mockk:$mockk_version")
+//    testImplementation("io.insert-koin:koin-test:$koin_version")
+//    testImplementation("io.insert-koin:koin-test-junit5:$koin_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    testImplementation("io.ktor:ktor-server-test-host-jvm:2.1.0")
 }

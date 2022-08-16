@@ -34,11 +34,16 @@ fun Application.configureSecurity() {
                 acceptLeeway(3)
             }
             validate { credential ->
+                println("==========security credential claims===========")
+                println(credential.payload.claims)
+                println("audience = ${credential.payload.audience}")
+                println("================================================")
                 if (credential.payload.audience.contains(jwtAudience)) JWTPrincipal(credential.payload) else null
             }
         }
     }
 }
+
 
 data class User(
     val email: Email,
@@ -46,18 +51,18 @@ data class User(
     val lastName: LastName
 )
 
-val AuthenticationContext.jwtPrincipal: JWTPrincipal
+private val AuthenticationContext.jwtPrincipal: JWTPrincipal
     get() = this.principal as JWTPrincipal
 
 val AuthenticationContext.user: User
-    get() =
-        User(
-            email = Email(jwtPrincipal["email"] ?: throw IllegalStateException("Email can not be empty")),
-            firstName = FirstName(
-                jwtPrincipal["given_name"] ?: throw IllegalStateException("given_name can not be empty")
-            ),
-            lastName = LastName(
-                jwtPrincipal["family_name"] ?: throw IllegalStateException("family_name can not be empty")
-            ),
-        )
+    get() = User(
+        email = Email(jwtPrincipal["email"] ?: throw IllegalStateException("Email can not be empty")),
+        firstName = FirstName(
+            jwtPrincipal["given_name"] ?: throw IllegalStateException("given_name can not be empty")
+        ),
+        lastName = LastName(
+            jwtPrincipal["family_name"] ?: throw IllegalStateException("family_name can not be empty")
+        ),
+    )
+
 

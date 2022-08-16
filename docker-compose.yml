@@ -1,7 +1,7 @@
 version: '3.6'
 services:
   keycloak-ktor:
-    image: quay.io/keycloak/keycloak:17.0.1
+    image: quay.io/keycloak/keycloak:18.0.2
     container_name: 'keycloak-ktor'
     ports:
       - "127.0.0.1:58081:8080"
