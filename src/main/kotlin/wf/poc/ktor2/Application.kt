@@ -1,9 +1,14 @@
 package wf.poc.ktor2
 
-import io.ktor.server.application.*
-import io.ktor.util.logging.Logger
+import io.ktor.server.application.Application
 import org.slf4j.LoggerFactory
-import wf.poc.ktor2.plugins.*
+import wf.poc.ktor2.plugins.configureAdministration
+import wf.poc.ktor2.plugins.configureDI
+import wf.poc.ktor2.plugins.configureHTTP
+import wf.poc.ktor2.plugins.configureMonitoring
+import wf.poc.ktor2.plugins.configureRouting
+import wf.poc.ktor2.plugins.configureSecurity
+import wf.poc.ktor2.plugins.configureSerialization
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 

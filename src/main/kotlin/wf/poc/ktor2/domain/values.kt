@@ -4,7 +4,7 @@ package wf.poc.ktor2.domain
 @JvmInline
 value class Email(private val value: String) {
     init {
-        if(value.isNullOrBlank()) {
+        if (value.isNullOrBlank()) {
             throw IllegalStateException("Email can not be empty")
         }
     }
@@ -14,7 +14,7 @@ value class Email(private val value: String) {
 @JvmInline
 value class FirstName(private val value: String) {
     init {
-        if(value.isNullOrBlank()) {
+        if (value.isNullOrBlank()) {
             throw IllegalStateException("FirstName can not be empty")
         }
     }
@@ -24,7 +24,7 @@ value class FirstName(private val value: String) {
 @JvmInline
 value class LastName(private val value: String) {
     init {
-        if(value.isNullOrBlank()) {
+        if (value.isNullOrBlank()) {
             throw IllegalStateException("LastName can not be empty")
         }
     }

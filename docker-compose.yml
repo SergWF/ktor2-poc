@@ -15,6 +15,6 @@ services:
       - ./keycloak/bootstrap.sh:/bootstrap.sh
       - ./keycloak/ktor-realm.json:/tmp/ktor-realm.json
 
-networks: 
+networks:
   default:
     name: ktor-network

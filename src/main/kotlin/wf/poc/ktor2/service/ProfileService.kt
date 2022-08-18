@@ -2,10 +2,7 @@ package wf.poc.ktor2.service
 
 import org.slf4j.LoggerFactory
 import wf.poc.ktor2.domain.Email
-import wf.poc.ktor2.domain.FirstName
-import wf.poc.ktor2.domain.LastName
 import wf.poc.ktor2.domain.Profile
-import wf.poc.ktor2.plugins.User
 import wf.poc.ktor2.storage.ProfileStorage
 
 class ProfileService(private val profileStorage: ProfileStorage) {

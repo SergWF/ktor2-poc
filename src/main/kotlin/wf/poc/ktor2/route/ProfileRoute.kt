@@ -13,13 +13,13 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import io.ktor.server.routing.route
 import org.kodein.di.instance
+import org.kodein.di.ktor.closestDI
 import wf.poc.ktor2.domain.Email
 import wf.poc.ktor2.domain.FirstName
 import wf.poc.ktor2.domain.LastName
 import wf.poc.ktor2.domain.Profile
 import wf.poc.ktor2.plugins.user
 import wf.poc.ktor2.service.ProfileService
-import org.kodein.di.ktor.*
 
 fun Route.profileRoute() {
 

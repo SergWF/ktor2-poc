@@ -3,7 +3,6 @@ package wf.poc.ktor2.service
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito
 import wf.poc.ktor2.domain.Email
 import wf.poc.ktor2.domain.FirstName
 import wf.poc.ktor2.domain.LastName
