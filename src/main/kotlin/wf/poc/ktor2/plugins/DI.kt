@@ -13,12 +13,11 @@ import wf.poc.ktor2.storage.ProfileStorage
 fun Application.configureDI() {
 
     di {
-        bindServices()
+        import(mainModule, allowOverride = true)
     }
 }
 
-
-fun DI.MainBuilder.bindServices() {
+val mainModule = DI.Module(name = "mainDI") {
     bind<ProfileStorage>() with singleton { ProfileStorage() }
     bind<ProfileService>() with singleton { ProfileService(instance()) }
     bind<RootService>() with singleton { RootService() }

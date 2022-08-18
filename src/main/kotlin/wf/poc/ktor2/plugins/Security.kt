@@ -1,16 +1,12 @@
 package wf.poc.ktor2.plugins
 
-import com.auth0.jwk.JwkProvider
 import com.auth0.jwk.JwkProviderBuilder
-import io.ktor.server.auth.*
-import io.ktor.util.*
-import io.ktor.server.auth.jwt.*
-import com.auth0.jwt.JWT
-import com.auth0.jwt.JWTVerifier
-import com.auth0.jwt.algorithms.Algorithm
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.request.*
+import io.ktor.server.application.Application
+import io.ktor.server.auth.AuthenticationContext
+import io.ktor.server.auth.authentication
+import io.ktor.server.auth.jwt.JWTPrincipal
+import io.ktor.server.auth.jwt.jwt
+import org.slf4j.LoggerFactory
 import wf.poc.ktor2.domain.Email
 import wf.poc.ktor2.domain.FirstName
 import wf.poc.ktor2.domain.LastName
@@ -18,6 +14,8 @@ import java.net.URL
 import java.util.concurrent.TimeUnit
 
 fun Application.configureSecurity() {
+
+    val logger = LoggerFactory.getLogger("Application.configureSecurity")
     val jwtIssuer = this@configureSecurity.environment.config.property("keycloak-jwt.issuer").getString()
     val jwtJwkUrl = this@configureSecurity.environment.config.property("keycloak-jwt.jwk-url").getString()
     val jwtAudience = this@configureSecurity.environment.config.property("keycloak-jwt.audience").getString()
@@ -34,10 +32,10 @@ fun Application.configureSecurity() {
                 acceptLeeway(3)
             }
             validate { credential ->
-                println("==========security credential claims===========")
-                println(credential.payload.claims)
-                println("audience = ${credential.payload.audience}")
-                println("================================================")
+                logger.debug("==========security credential claims===========")
+                logger.debug("${credential.payload.claims}")
+                logger.debug("audience = ${credential.payload.audience}")
+                logger.debug("================================================")
                 if (credential.payload.audience.contains(jwtAudience)) JWTPrincipal(credential.payload) else null
             }
         }
@@ -54,15 +52,14 @@ data class User(
 private val AuthenticationContext.jwtPrincipal: JWTPrincipal
     get() = this.principal as JWTPrincipal
 
+private fun JWTPrincipal.getNotNull(key: String): String =
+    this[key] ?: throw IllegalStateException("$key can not be empty")
+
 val AuthenticationContext.user: User
     get() = User(
-        email = Email(jwtPrincipal["email"] ?: throw IllegalStateException("Email can not be empty")),
-        firstName = FirstName(
-            jwtPrincipal["given_name"] ?: throw IllegalStateException("given_name can not be empty")
-        ),
-        lastName = LastName(
-            jwtPrincipal["family_name"] ?: throw IllegalStateException("family_name can not be empty")
-        ),
+        email = Email(jwtPrincipal.getNotNull("email")),
+        firstName = FirstName(jwtPrincipal.getNotNull("given_name")),
+        lastName = LastName(jwtPrincipal.getNotNull("family_name"))
     )
 
 

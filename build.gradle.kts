@@ -7,8 +7,8 @@ val prometeus_version: String by project
 
 plugins {
     application
-    kotlin("jvm") version "1.6.21"
-    kotlin("plugin.serialization") version "1.6.21"
+    kotlin("jvm") version "1.7.10"
+    kotlin("plugin.serialization") version "1.7.10"
 }
 
 group = "wf.poc.ktor2"
@@ -45,16 +45,12 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
-//    implementation("io.insert-koin:koin-ktor:$koin_version")
-//    implementation("io.insert-koin:koin-logger-slf4j:$koin_version")
     implementation("org.kodein.di:kodein-di-framework-ktor-server-jvm:$kodein_version")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version")
     testImplementation("org.mockito:mockito-junit-jupiter:4.6.1")
 
-//    testImplementation("io.mockk:mockk:$mockk_version")
-//    testImplementation("io.insert-koin:koin-test:$koin_version")
-//    testImplementation("io.insert-koin:koin-test-junit5:$koin_version")
+    testImplementation("io.mockk:mockk:$mockk_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("io.ktor:ktor-server-test-host-jvm:2.1.0")
 }

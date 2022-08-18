@@ -1,5 +1,7 @@
 package wf.poc.ktor2.service
 
+import io.mockk.every
+import io.mockk.mockk
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import wf.poc.ktor2.domain.Email
@@ -12,13 +14,15 @@ import kotlin.test.assertEquals
 
 internal class ProfileServiceTest {
 
-    private val profileStorage = Mockito.mock(ProfileStorage::class.java)
+    private val profileStorage: ProfileStorage = mockk()
     private val profileService: ProfileService = ProfileService(profileStorage)
     private val email: Email = Email("jdoe@test.com")
+
     @Test
-    fun `should read profile`(){
+    fun `should read profile`() {
         val profile = Profile(email, FirstName("John"), LastName("Doe"))
-        Mockito.`when`(profileStorage.getProfile(email)).thenReturn(profile)
+        every { profileStorage.getProfile(email) } returns profile
+
         assertEquals(profile, profileService.get(email))
     }
 }
