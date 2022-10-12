@@ -6,6 +6,7 @@ import wf.poc.ktor2.plugins.configureAdministration
 import wf.poc.ktor2.plugins.configureDI
 import wf.poc.ktor2.plugins.configureHTTP
 import wf.poc.ktor2.plugins.configureMonitoring
+import wf.poc.ktor2.plugins.configureRequestValidation
 import wf.poc.ktor2.plugins.configureRouting
 import wf.poc.ktor2.plugins.configureSecurity
 import wf.poc.ktor2.plugins.configureSerialization
@@ -24,4 +25,5 @@ fun Application.module() {
     configureMonitoring()
     configureSerialization()
     configureAdministration()
+//    configureRequestValidation()
 }

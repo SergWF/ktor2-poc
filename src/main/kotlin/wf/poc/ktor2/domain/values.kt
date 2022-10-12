@@ -1,8 +1,10 @@
 package wf.poc.ktor2.domain
 
-@kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializable
+
+@Serializable
 @JvmInline
-value class Email(private val value: String) {
+value class Email(val value: String) {
     init {
         if (value.isNullOrBlank()) {
             throw IllegalStateException("Email can not be empty")
@@ -10,9 +12,9 @@ value class Email(private val value: String) {
     }
 }
 
-@kotlinx.serialization.Serializable
+@Serializable
 @JvmInline
-value class FirstName(private val value: String) {
+value class FirstName(val value: String) {
     init {
         if (value.isNullOrBlank()) {
             throw IllegalStateException("FirstName can not be empty")
@@ -20,9 +22,9 @@ value class FirstName(private val value: String) {
     }
 }
 
-@kotlinx.serialization.Serializable
+@Serializable
 @JvmInline
-value class LastName(private val value: String) {
+value class LastName(val value: String) {
     init {
         if (value.isNullOrBlank()) {
             throw IllegalStateException("LastName can not be empty")
