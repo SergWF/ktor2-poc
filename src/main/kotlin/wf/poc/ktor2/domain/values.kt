@@ -1,13 +1,24 @@
 package wf.poc.ktor2.domain
 
 import kotlinx.serialization.Serializable
-
+val emailRegex = Regex(
+    "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+            "\\@" +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+            "(" +
+            "\\." +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+            ")+"
+)
 @Serializable
 @JvmInline
 value class Email(val value: String) {
     init {
         if (value.isNullOrBlank()) {
-            throw IllegalStateException("Email can not be empty")
+            throw IllegalArgumentException("Email can't be empty")
+        }
+        if(!emailRegex.matches(value)) {
+            throw IllegalArgumentException("Email should match email pattern")
         }
     }
 }
@@ -17,7 +28,7 @@ value class Email(val value: String) {
 value class FirstName(val value: String) {
     init {
         if (value.isNullOrBlank()) {
-            throw IllegalStateException("FirstName can not be empty")
+            throw IllegalStateException("FirstName can't be empty")
         }
     }
 }
@@ -27,7 +38,7 @@ value class FirstName(val value: String) {
 value class LastName(val value: String) {
     init {
         if (value.isNullOrBlank()) {
-            throw IllegalStateException("LastName can not be empty")
+            throw IllegalStateException("LastName can't be empty")
         }
     }
 }

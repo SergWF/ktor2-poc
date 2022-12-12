@@ -25,5 +25,6 @@ fun Application.module() {
     configureMonitoring()
     configureSerialization()
     configureAdministration()
-//    configureRequestValidation()
+    configureRequestValidation()
+//    configureStatusPage()
 }

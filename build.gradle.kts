@@ -1,9 +1,11 @@
-val kodein_version: String by project
-val kotlin_version: String by project
-val ktor_version: String by project
-val logback_version: String by project
-val mockk_version: String by project
-val prometeus_version: String by project
+val kodeinVersion: String by project
+val konformVersion: String by project
+val kotlinVersion: String by project
+val ktorVersion: String by project
+val logbackVersion: String by project
+val mockkVersion: String by project
+val prometeusVersion: String by project
+
 
 plugins {
     application
@@ -35,26 +37,27 @@ configurations.testImplementation {
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
-    implementation("io.ktor:ktor-server-auth-jvm:$ktor_version")
-    implementation("io.ktor:ktor-server-auth-jwt-jvm:$ktor_version")
-    implementation("io.ktor:ktor-server-cors-jvm:$ktor_version")
-    implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
-    implementation("io.ktor:ktor-server-call-logging-jvm:$ktor_version")
-    implementation("io.ktor:ktor-server-metrics-micrometer-jvm:$ktor_version")
-    implementation("io.ktor:ktor-server-status-pages:$ktor_version")
-    implementation("io.ktor:ktor-server-request-validation:$ktor_version")
-    implementation("io.micrometer:micrometer-registry-prometheus:$prometeus_version")
-    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
-    implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
-    implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation("org.kodein.di:kodein-di-framework-ktor-server-jvm:$kodein_version")
+    implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth-jwt-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-cors-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-call-logging-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-metrics-micrometer-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
+    implementation("io.ktor:ktor-server-request-validation:$ktorVersion")
+    implementation("io.micrometer:micrometer-registry-prometheus:$prometeusVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    implementation("org.kodein.di:kodein-di-framework-ktor-server-jvm:$kodeinVersion")
+    implementation("io.konform:konform:$konformVersion")
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:$kotlinVersion")
 
-    testImplementation("io.mockk:mockk:$mockk_version")
-    testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
-    testImplementation("io.ktor:ktor-server-test-host-jvm:$ktor_version")
-    testImplementation("io.ktor:ktor-client-content-negotiation-jvm:$ktor_version")
+    testImplementation("io.mockk:mockk:$mockkVersion")
+    testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
+    testImplementation("io.ktor:ktor-server-test-host-jvm:$ktorVersion")
+    testImplementation("io.ktor:ktor-client-content-negotiation-jvm:$ktorVersion")
 
 }
